@@ -8,7 +8,7 @@ are excluded - only for this repo I included them.
 
 ## Install vendor with composer
 ````
-docker-compose exec shopware bash -l
+docker-compose exec shopware_demo bash -l
 composer install
 ````
 
