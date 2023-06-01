@@ -8,7 +8,7 @@ services:
             MYSQL_USER: shopware
             MYSQL_PASSWORD: shopware
         ports:
-            - "3306:3306"
+            - "59425:3306"
     shopware:
         image: shyim/shopware:6.4.20-php8.2
         container_name: shopware_demo
@@ -20,6 +20,54 @@ services:
             DATABASE_HOST: mysql
             DATABASE_URL: mysql://shopware:shopware@mysql:3306/shopware
         ports:
-            - 80:80
+            - "80:80"
         volumes:
-            - ./app/html:/var/www/html
+            #- state:/state
+            - plugins:/var/www/html/custom/plugins
+            - files:/var/www/html/files
+            - theme:/var/www/html/public/theme
+            - jwt:/var/www/html/config/jwt
+            - media:/var/www/html/public/media
+            - thumbnail:/var/www/html/public/thumbnail
+            - bundles:/var/www/html/public/bundles
+            - sitemap:/var/www/html/public/sitemap
+volumes:
+    #state:
+    plugins:
+    files:
+    theme:
+    jwt:
+    media:
+    thumbnail:
+    bundles:
+    sitemap:
+
+x-mutagen:
+    sync:
+        #state:
+            #alpha: "./app/html"
+            #beta: "volume://state"
+        plugins:
+            alpha: "./app/html/custom/plugins"
+            beta: "volume://plugins"
+        files:
+            alpha: "./app/html/files"
+            beta: "volume://files"
+        theme:
+            alpha: "./app/html/public/theme"
+            beta: "volume://theme"
+        jwt:
+            alpha: "./app/html/config/jwt"
+            beta: "volume://jwt"
+        media:
+            alpha: "./app/html/public/media"
+            beta: "volume://media"
+        thumbnail:
+            alpha: "./app/html/public/thumbnail"
+            beta: "volume://thumbnail"
+        bundles:
+            alpha: "./app/html/public/bundles"
+            beta: "volume://bundles"
+        sitemap:
+            alpha: "./app/html/public/sitemap"
+            beta: "volume://sitemap"
